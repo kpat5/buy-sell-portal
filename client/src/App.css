@@ -1,3 +1,42 @@
 .container {
   text-align: center;
 }
+.createInvoice {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 40%;
+  align-items: center;
+  margin: auto;
+}
+.input {
+  width: 400px;
+  height: 30px;
+  margin: 10px;
+}
+.button {
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+}
+.button:hover {
+  background-color: grey;
+  color: white;
+}
+.details {
+  width: 100%;
+  background-color: darkgray;
+  border-radius: 10px;
+  /* height: 100px; */
+  margin-top: 40px;
+  padding: 10px;
+}
+.heading {
+  margin: 10px;
+}
+.data h1 {
+  margin-top: 15px;
+}
+.data h2 {
+  margin: 5px;
+}

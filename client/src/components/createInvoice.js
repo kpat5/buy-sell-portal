@@ -29,6 +29,7 @@ export default function CreateInvoice() {
 
   const handleSubmit = async () => {
     try {
+      console.log(sellerList);
       const res = await contract.methods
         .storeData(buyerPan, sellerList, amount)
         .send({ from: accounts[0] });
@@ -60,9 +61,9 @@ export default function CreateInvoice() {
         <div>
           <input
             type="text"
+            className="input"
             placeholder="option"
-            // value={optionsList[inputName - 1]}
-            pan={inputName}
+            name={inputName}
             onChange={handleUserInputChange}
           />
         </div>
@@ -71,33 +72,49 @@ export default function CreateInvoice() {
   });
 
   return (
-    <div>
+    <div className="createInvoice">
+      <h1>Create Invoice</h1>
       <div>
-        <h1>Create Invoice</h1>
         <input
           type="text"
           placeholder="Buyer's PAN"
+          className="input"
           onChange={(e) => setBuyerPan(e.target.value)}
         />
+      </div>
+      <div>
         <input
           type="number"
           placeholder="Number of sellers"
+          className="input"
           onChange={(e) => {
             setNumofSellers(e.target.value);
             // OptionInput();
           }}
         />
       </div>
+
       {OptionInput}
       <input
         type="text"
         pattern="[0-9]*"
         placeholder="Amount"
+        className="input"
         onChange={(e) => {
           setAmount(e.target.value);
         }}
       />
-      <button onClick={handleSubmit}>Create Invoice</button>
+      <button onClick={handleSubmit} className="button">
+        Create Invoice
+      </button>
+      <hr
+        style={{
+          height: "1px",
+          backgroundColor: "black",
+          margin: "10px",
+          width: "100%",
+        }}
+      />
     </div>
   );
 }

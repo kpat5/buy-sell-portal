@@ -13,6 +13,7 @@ contract buySell{
     }
 
     event dataStored(string buyerPan,uint256 amount,uint256 timestamp);
+    event buyerDetails(invoice[] buyDetails);
 
     enum paymentStatus{
         NOT_PAID,IN_PROGRESS,PAID
@@ -22,13 +23,17 @@ contract buySell{
 
     function storeData(string calldata buyerPan,string[] calldata sellerPans,uint256 amount) external{
         invoice[] storage newInvoice=Invoices[buyerPan];
-
         invoice memory singleInvoice;
+        singleInvoice.sellPan=new string[](sellerPans.length);
         if(newInvoice.length==0){
             singleInvoice.id=1;
         }
         else{
             singleInvoice.id=newInvoice.length+1;
+        }
+        for(uint i=0;i<sellerPans.length;i++)
+        {
+            singleInvoice.sellPan[i]=sellerPans[i];
         }       
         singleInvoice.sellPan=sellerPans;
         uint256 time=block.timestamp;
@@ -49,8 +54,10 @@ contract buySell{
         Invoices[buyerPan][id].status=paymentStatus.PAID;
     }
 
-    function getInfo(string calldata buyerPan) external view returns(invoice[] memory)
+    function getInfo(string calldata buyerPan) external returns(invoice[] memory)
     {
+        require(Invoices[buyerPan].length!=0,"The buyer doesn't exist");
+        emit buyerDetails(Invoices[buyerPan]);
         return Invoices[buyerPan];
     }
 }
