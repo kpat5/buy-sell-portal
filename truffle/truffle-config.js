@@ -23,7 +23,8 @@
 // const infuraProjectId = process.env["INFURA_PROJECT_ID"];
 
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
-
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+require("dotenv").config();
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -43,11 +44,29 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    development: {
-      host: "127.0.0.1", // Localhost (default: none)
-      port: 7545, // Standard Ethereum port (default: none)
-      network_id: 5777, // Any network (default: none)
+    // development: {
+    //   host: "127.0.0.1", // Localhost (default: none)
+    //   port: 7545, // Standard Ethereum port (default: none)
+    //   network_id: 5777, // Any network (default: none)
+    // },
+    rinkeby: {
+      provider: function () {
+        return new HDWalletProvider(
+          process.env.MNEMONIC,
+          "https://rinkeby.infura.io/v3/" + process.env.API_KEY
+        );
+      },
+      network_id: "4",
     },
+    // ropsten: {
+    //   provider: function () {
+    //     return new HDWalletProvider(
+    //       process.env.MNEMONIC,
+    //       "https://ropsten.infura.io/v3/" + process.env.API_KEY
+    //     );
+    //   },
+    //   network_id: 4,
+    // },
     //
     // An additional network, but with some advanced options…
     // advanced: {
