@@ -22,11 +22,7 @@ export default function GetData() {
   };
   const handleSubmit = async () => {
     try {
-      const res = await contract.methods
-        .getInfo(buyerPan)
-        .send({ from: accounts[0] });
-
-      obj = res.events.buyerDetails.returnValues.buyDetails;
+      const obj = await contract.methods.getInfo(buyerPan).call();
       setDetails(
         obj?.map((arr) => {
           var s = arr.status;
